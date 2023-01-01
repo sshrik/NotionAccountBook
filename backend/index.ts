@@ -1,4 +1,5 @@
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express, { urlencoded } from 'express';
 import session from 'express-session';
@@ -12,7 +13,13 @@ const SessionStore = MemoryStore(session);
 
 dotenv.config();
 
+app.use(
+  cors({
+    origin: ['http://localhost:8000', '*'],
+  })
+);
 app.use(urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cookieParser());
 app.use(
   session({
